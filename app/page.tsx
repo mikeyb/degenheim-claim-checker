@@ -41,7 +41,7 @@ export default function Home() {
 }
 
 // create a function to check if the NFT is claimed
-export async function checkIfNFTIsClaimed(tokenId: string) {
+async function checkIfNFTIsClaimed(tokenId: string) {
     const nftContract = getContract({
         address: '0x6b27e8d4f299127f62381bb5567f49df43381466',
         abi: nftAbi,
