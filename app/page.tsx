@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getContract } from 'viem';
 import { nftAbi } from './abi';
 import { publicClient } from './viem';
@@ -7,6 +7,20 @@ import { publicClient } from './viem';
 export default function Home() {
     const [tokenId, setTokenId] = useState('');
     const [isClaimed, setIsClaimed] = useState<boolean | null>(null);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsClaimed(null);
+        }, 10000);
+
+        return () => clearTimeout(timer);
+    }, [isClaimed]);
+
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTokenId(e.target.value);
+        setIsClaimed(null);
+    };
+
     return (
         <div className="container">
             <h1 className="text-4xl font-bold pb-10">
@@ -17,7 +31,7 @@ export default function Home() {
                     type="text"
                     placeholder="Enter your wallet address"
                     className="input-field"
-                    onChange={(e) => setTokenId(e.target.value)}
+                    onChange={handleInputChange}
                 />
                 <button
                     className="check-button"
